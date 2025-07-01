@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitcoinVault - Your Gateway to Bitcoin Investment</title>
+    <link rel="shortcut icon" href="icon.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .bitcoin-glow {
+            box-shadow: 0 0 30px rgba(247, 147, 26, 0.3);
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse-gold {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fab fa-bitcoin text-yellow-500 text-2xl"></i>
+                    <span class="text-xl font-bold">BitcoinVault</span>
+                </div>
+                <div id="nav-menu" class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-yellow-500 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-yellow-500 transition-colors">About</a>
+                    <a href="#features" class="hover:text-yellow-500 transition-colors">Features</a>
+                    <a href="#testimonials" class="hover:text-yellow-500 transition-colors">Reviews</a>
+                    <a href="#faq" class="hover:text-yellow-500 transition-colors">FAQ</a>
+                    <a href="#contact" class="hover:text-yellow-500 transition-colors">Contact</a>
+                </div>
+                <div id="auth-buttons" class="flex space-x-4">
+                    <button onclick="showAuth('login')"
+                        class="px-4 py-2 border border-yellow-500 text-yellow-500 rounded-lg hover:bg-yellow-500 hover:text-black transition-all">Login</button>
+                    <button onclick="showAuth('register')"
+                        class="px-4 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition-all">Sign
+                        Up</button>
+                </div>
+                <div id="user-menu" class="hidden flex items-center space-x-4">
+                    <div class="md:hidden flex justify-between items-center bg-gray-900 p-4">
+                        <button id="dashboard-toggle-btn" onclick="toggleDashboardDropdown()" class="text-white">
+                            <i id="dashboard-toggle-icon" class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                    <div id="dashboard-dropdown" class="md:hidden bg-gray-800 text-white p-4 space-y-2 hidden">
+                        <button onclick="showDashboardSection('overview')"
+                            class="w-full text-left px-4 py-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-chart-pie mr-2"></i> Portfolio
+                        </button>
+                        <button onclick="showDashboardSection('deposit')"
+                            class="w-full text-left px-4 py-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-plus mr-2"></i> Deposit
+                        </button>
+                        <!-- <button onclick="showDashboardSection('withdraw')"
+                            class="w-full text-left px-4 py-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-minus mr-2"></i> Withdraw
+                        </button> -->
+                        <button onclick="showDashboardSection('history')"
+                            class="w-full text-left px-4 py-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-history mr-2"></i> History
+                        </button>
+                    </div>
+
+
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 z-40 hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+            <a href="#home" onclick="closeMobileMenu()" class="hover:text-yellow-500">Home</a>
+            <a href="#about" onclick="closeMobileMenu()" class="hover:text-yellow-500">About</a>
+            <a href="#features" onclick="closeMobileMenu()" class="hover:text-yellow-500">Features</a>
+            <a href="#testimonials" onclick="closeMobileMenu()" class="hover:text-yellow-500">Reviews</a>
+            <a href="#faq" onclick="closeMobileMenu()" class="hover:text-yellow-500">FAQ</a>
+            <a href="#contact" onclick="closeMobileMenu()" class="hover:text-yellow-500">Contact</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen gradient-bg flex items-center pt-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="slide-in">
+                        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                            Invest in <span class="text-yellow-500 pulse-gold">Bitcoin</span> Today
+                        </h1>
+                        <p class="text-xl mb-8 text-gray-200">
+                            Join thousands of investors building wealth through cryptocurrency.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                            <button onclick="showAuth('register')"
+                                class="px-8 py-4 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all transform hover:scale-105">
+                                Start Investing Now
+                            </button>
+                            <button onclick="scrollToSection('about')"
+                                class="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition-all">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bitcoin-glow bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                        <div class="text-center mb-6">
+                            <i class="fab fa-bitcoin text-yellow-500 text-6xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Live Bitcoin Price</h3>
+                        </div>
+                        <div id="price-ticker" class="text-center">
+                            <div class="text-4xl font-bold text-yellow-500 mb-2" id="btc-price">Loading...</div>
+                            <div class="text-lg" id="price-change">Loading...</div>
+                            <div class="text-sm text-gray-400 mt-2" id="last-updated">Last updated: Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Why Choose Bitcoin Investment?</h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Bitcoin has revolutionized the financial world. Here's why it should be part of your investment
+                        portfolio.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-700 rounded-xl p-8 text-center hover:bg-gray-600 transition-all">
+                        <i class="fas fa-chart-line text-yellow-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-4">High Growth Potential</h3>
+                        <p class="text-gray-300">Bitcoin has shown remarkable growth over the past decade, outperforming
+                            traditional assets.</p>
+                    </div>
+                    <div class="bg-gray-700 rounded-xl p-8 text-center hover:bg-gray-600 transition-all">
+                        <i class="fas fa-shield-alt text-yellow-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-4">Digital Gold</h3>
+                        <p class="text-gray-300">Limited supply and increasing demand make Bitcoin a hedge against
+                            inflation and economic uncertainty.</p>
+                    </div>
+                    <div class="bg-gray-700 rounded-xl p-8 text-center hover:bg-gray-600 transition-all">
+                        <i class="fas fa-globe text-yellow-500 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-4">Global Access</h3>
+                        <p class="text-gray-300">Trade 24/7 worldwide without borders or traditional banking
+                            limitations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <!-- <section id="features" class="py-20 bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Choose Your Investment Plan</h2>
+                    <p class="text-xl text-gray-300">Start small or go big - we have plans for every investor</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-gray-800 rounded-xl p-8 border-2 border-gray-700 hover:border-yellow-500 transition-all">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-seedling text-green-500 text-3xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                            <div class="text-3xl font-bold text-yellow-500 mb-2">$10 - $999</div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Basic
+                                portfolio tracking</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Weekly market
+                                reports</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Email support
+                            </li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Mobile app
+                                access</li>
+                        </ul>
+                        <button onclick="showAuth('register')"
+                            class="w-full py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all">
+                            Get Started
+                        </button>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-8 border-2 border-yellow-500 transform scale-105 relative">
+                        <div
+                            class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold">
+                            POPULAR
+                        </div>
+                        <div class="text-center mb-6">
+                            <i class="fas fa-rocket text-blue-500 text-3xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Pro</h3>
+                            <div class="text-3xl font-bold text-yellow-500 mb-2">$1,000 - $9,999</div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Advanced
+                                analytics</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Daily market
+                                insights</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Priority
+                                support</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Auto-invest
+                                features</li>
+                        </ul>
+                        <button onclick="showAuth('register')"
+                            class="w-full py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all">
+                            Start Pro
+                        </button>
+                    </div>
+                    <div
+                        class="bg-gray-800 rounded-xl p-8 border-2 border-gray-700 hover:border-purple-500 transition-all">
+                        <div class="text-center mb-6">
+                            <i class="fas fa-crown text-purple-500 text-3xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">VIP</h3>
+                            <div class="text-3xl font-bold text-yellow-500 mb-2">$10,000+</div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Personal
+                                advisor</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Custom
+                                strategies</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>24/7 phone
+                                support</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Exclusive
+                                events</li>
+                        </ul>
+                        <button onclick="showAuth('register')"
+                            class="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all">
+                            Go VIP
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">What Our Investors Say</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-700 rounded-xl p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-black"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Sarah Johnson</h4>
+                                <div class="text-yellow-500">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300">"Started with $500 and now I have a solid Bitcoin portfolio. The
+                            platform is user-friendly and the support is excellent!"</p>
+                    </div>
+                    <div class="bg-gray-700 rounded-xl p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-black"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Mike Chen</h4>
+                                <div class="text-yellow-500">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300">"The analytics and insights helped me make informed decisions. My
+                            portfolio has grown 300% in the last year!"</p>
+                    </div>
+                    <div class="bg-gray-700 rounded-xl p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-black"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Emma Rodriguez</h4>
+                                <div class="text-yellow-500">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300">"VIP service is amazing! Having a personal advisor made all the
+                            difference in my investment strategy."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 bg-gray-900">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Frequently Asked Questions</h2>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-gray-800 rounded-xl p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(0)">
+                            <h3 class="text-xl font-bold">How do I start investing in Bitcoin?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-0"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-300" id="faq-content-0">
+                            <p>Simply sign up for an account, verify your identity, deposit funds, and start buying
+                                Bitcoin. Our platform makes it easy with step-by-step guidance.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(1)">
+                            <h3 class="text-xl font-bold">Is Bitcoin investment safe?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-300" id="faq-content-1">
+                            <p>While all investments carry risk, we use industry-leading security measures including
+                                cold storage, multi-sig wallets, and regular security audits to protect your assets.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(2)">
+                            <h3 class="text-xl font-bold">What's the minimum investment?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-300" id="faq-content-2">
+                            <p>You can start investing with as little as $10. Our Starter plan is perfect for beginners
+                                who want to learn and grow their investment gradually.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-6">
+                        <button class="w-full text-left flex justify-between items-center" onclick="toggleFAQ(3)">
+                            <h3 class="text-xl font-bold">How do I withdraw my Bitcoin?</h3>
+                            <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
+                        </button>
+                        <div class="hidden mt-4 text-gray-300" id="faq-content-3">
+                            <p>You can withdraw your Bitcoin to your personal wallet or convert to fiat currency and
+                                withdraw to your bank account. Both options are available 24/7.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6">Get In Touch</h2>
+                    <p class="text-xl text-gray-300">Have questions? We're here to help you start your Bitcoin journey.
+                    </p>
+                </div>
+                <div class="bg-gray-700 rounded-xl p-8">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="First Name"
+                                class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                required>
+                            <input type="text" placeholder="Last Name"
+                                class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                required>
+                        </div>
+                        <input type="email" placeholder="Email Address"
+                            class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            required>
+                        <input type="text" placeholder="Subject"
+                            class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            required>
+                        <textarea rows="5" placeholder="Your Message"
+                            class="w-full px-4 py-3 bg-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                            required></textarea>
+                        <button type="submit"
+                            class="w-full py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-xl p-8 w-full max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="auth-title" class="text-2xl font-bold">Login</h2>
+                <button onclick="closeAuth()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="auth-form">
+                <div id="register-fields" class="hidden space-y-4 mb-4">
+                    <input type="text" id="firstName" placeholder="First Name"
+                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    <input type="text" id="lastName" placeholder="Last Name"
+                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                <div class="space-y-4 mb-6">
+                    <input type="email" id="email" placeholder="Email Address"
+                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        required>
+                    <input type="password" id="password" placeholder="Password"
+                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        required>
+                </div>
+                <button type="submit" id="auth-submit"
+                    class="w-full py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all mb-4">
+                    Login
+                </button>
+                <div class="text-center">
+                    <button type="button" id="auth-switch" class="text-yellow-500 hover:underline">
+                        Don't have an account? Sign up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden min-h-screen bg-gray-900 pt-20">
+        <div class="flex">
+            <!-- Dashboard Header (Mobile Only) -->
+
+
+            <!-- Sidebar -->
+            <div id="dashboard-sidebar" class="w-64 bg-gray-800 min-h-screen p-6 hidden md:block">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-black"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold" id="user-name">John Doe</div>
+                        <div class="text-sm text-gray-400">Investor</div>
+                    </div>
+                </div>
+                <nav class="space-y-2">
+                    <button onclick="showDashboardSection('overview')"
+                        class="w-full text-left px-4 py-2 rounded-lg bg-yellow-500 text-black font-medium">
+                        <i class="fas fa-chart-pie mr-3"></i>Portfolio
+                    </button>
+                    <button onclick="showDashboardSection('deposit')"
+                        class="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-700 transition-all">
+                        <i class="fas fa-plus mr-3"></i>Deposit
+                    </button>
+                    <!-- <button onclick="showDashboardSection('withdraw')"
+                        class="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-700 transition-all">
+                        <i class="fas fa-minus mr-3"></i>Withdraw
+                    </button> -->
+                    <button onclick="showDashboardSection('history')"
+                        class="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-700 transition-all">
+                        <i class="fas fa-history mr-3"></i>History
+                    </button>
+                </nav>
+            </div>
+
+
+            <!-- Main Dashboard Content -->
+            <div class="flex-1 p-8">
+                <!-- Portfolio Overview -->
+                <div id="dashboard-overview">
+                    <h1 class="text-3xl font-bold mb-8">Portfolio Overview</h1>
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gray-800 rounded-xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-300">Total Portfolio Value</h3>
+                                <i class="fas fa-wallet text-yellow-500"></i>
+                            </div>
+                            <div class="text-3xl font-bold text-yellow-500" id="portfolio-value">$0.00</div>
+                            <div class="text-sm text-green-500 mt-2">+0% this month</div>
+                        </div>
+                        <div class="bg-gray-800 rounded-xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-300">Bitcoin Holdings</h3>
+                                <i class="fab fa-bitcoin text-yellow-500"></i>
+                            </div>
+                            <div class="text-3xl font-bold">0.00 BTC</div>
+                            <div class="text-sm text-gray-400 mt-2">≈ $0.00</div>
+                        </div>
+                        <div class="bg-gray-800 rounded-xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-300">Total Invested</h3>
+                                <i class="fas fa-arrow-up text-green-500"></i>
+                            </div>
+                            <div class="text-3xl font-bold">$0.00</div>
+                            <div class="text-sm text-green-500 mt-2">ROI: 0%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-xl p-6">
+                        <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
+                        <div class="space-y-4">
+                            <!-- <div class="flex items-center justify-between p-4 bg-gray-700 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-plus text-white text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Bitcoin Purchase</div>
+                                        <div class="text-sm text-gray-400">June 28, 2025</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-green-500">+0.0234 BTC</div>
+                                    <div class="text-sm text-gray-400">$1,000.00</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-700 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-exchange-alt text-white text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Price Alert Triggered</div>
+                                        <div class="text-sm text-gray-400">June 27, 2025</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-blue-500">$43,750</div>
+                                    <div class="text-sm text-gray-400">Target reached</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-700 rounded-lg">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-plus text-white text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Initial Deposit</div>
+                                        <div class="text-sm text-gray-400">June 25, 2025</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-green-500">+0.2611 BTC</div>
+                                    <div class="text-sm text-gray-400">$9,800.00</div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deposit Section -->
+                <div id="dashboard-deposit" class="hidden">
+                    <h1 class="text-3xl font-bold mb-8">Make a Deposit</h1>
+                    <div class="max-w-2xl">
+                        <div class="bg-gray-800 rounded-xl p-8">
+                            <div class="mb-6">
+                                <h3 class="text-xl font-bold mb-4">Deposit Bitcoin</h3>
+                                <p class="text-gray-300 mb-6">Send Bitcoin to the address below. Your deposit will be
+                                    credited after 1 network confirmations.</p>
+                            </div>
+
+                            <div class="bg-gray-700 rounded-lg p-6 mb-6">
+                                <div class="text-center mb-4">
+                                    <div id="qr-code" class="bg-white p-4 rounded-lg inline-block mb-4"></div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium mb-2">Bitcoin Address:</label>
+                                    <div class="flex items-center space-x-2">
+                                        <input type="text" id="btc-address" value="bc1qj73jw745p5el8z2d9yjdq78gkc4nr8sw3nd5vy"
+                                            class="flex-1 px-4 py-3 bg-gray-600 rounded-lg text-sm font-mono" readonly>
+                                        <button onclick="copyAddress()"
+                                            class="px-4 py-3 bg-yellow-500 text-black rounded-lg hover:bg-yellow-600 transition-all">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-yellow-500">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                                    Only send Bitcoin (BTC) to this address. Sending other cryptocurrencies will result
+                                    in permanent loss.
+                                </div>
+                            </div>
+
+                            <!-- <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Expected Amount (Optional)</label>
+                                    <input type="number" placeholder="0.00"
+                                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Reference Note (Optional)</label>
+                                    <input type="text" placeholder="Deposit for investment plan"
+                                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Withdraw Section -->
+                <div id="dashboard-withdraw" class="hidden">
+                    <h1 class="text-3xl font-bold mb-8">Withdraw Funds</h1>
+                    <div class="max-w-2xl">
+                        <div class="bg-gray-800 rounded-xl p-8">
+                            <div class="mb-6">
+                                <h3 class="text-xl font-bold mb-2">Available Balance</h3>
+                                <div class="text-2xl font-bold text-yellow-500">0.2845 BTC ≈ $12,450.30</div>
+                            </div>
+
+                            <form class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Withdrawal Method</label>
+                                    <select
+                                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                        <option>Bitcoin Withdrawal</option>
+                                        <option>Bank Transfer (Convert to USD)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Bitcoin Address</label>
+                                    <input type="text" placeholder="Enter your Bitcoin wallet address"
+                                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                        required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Amount (BTC)</label>
+                                    <input type="number" step="0.00000001" placeholder="0.00000000"
+                                        class="w-full px-4 py-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                        required>
+                                </div>
+                                <div class="bg-gray-700 rounded-lg p-4">
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span>Network Fee:</span>
+                                        <span>0.00001 BTC</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span>Processing Fee:</span>
+                                        <span>0.5%</span>
+                                    </div>
+                                    <hr class="my-2 border-gray-600">
+                                    <div class="flex justify-between font-semibold">
+                                        <span>You'll Receive:</span>
+                                        <span class="text-yellow-500">0.00000000 BTC</span>
+                                    </div>
+                                </div>
+                                <button type="submit"
+                                    class="w-full py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all">
+                                    Withdraw Bitcoin
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div id="dashboard-history" class="hidden">
+                    <h1 class="text-3xl font-bold mb-8">Transaction History</h1>
+                    <div class="bg-gray-800 rounded-xl p-6">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b border-gray-700">
+                                        <th class="text-left py-3">Date</th>
+                                        <th class="text-left py-3">Type</th>
+                                        <th class="text-left py-3">Amount</th>
+                                        <th class="text-left py-3">Status</th>
+                                        <th class="text-left py-3">TX Hash</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tbody class="space-y-2">
+                                    <tr class="border-b border-gray-700">
+                                        <td class="py-4">June 28, 2025</td>
+                                        <td class="py-4">
+                                            <span class="px-2 py-1 bg-green-600 rounded-full text-xs">Deposit</span>
+                                        </td>
+                                        <td class="py-4 font-semibold">+0.0234 BTC</td>
+                                        <td class="py-4">
+                                            <span class="px-2 py-1 bg-green-600 rounded-full text-xs">Completed</span>
+                                        </td>
+                                        <td class="py-4">
+                                            <span
+                                                class="text-xs font-mono text-blue-400 cursor-pointer hover:underline">a1b2c3d4...e5f6g7h8</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-700">
+                                        <td class="py-4">June 25, 2025</td>
+                                        <td class="py-4">
+                                            <span class="px-2 py-1 bg-green-600 rounded-full text-xs">Deposit</span>
+                                        </td>
+                                        <td class="py-4 font-semibold">+0.2611 BTC</td>
+                                        <td class="py-4">
+                                            <span class="px-2 py-1 bg-green-600 rounded-full text-xs">Completed</span>
+                                        </td>
+                                        <td class="py-4">
+                                            <span
+                                                class="text-xs font-mono text-blue-400 cursor-pointer hover:underline">b2c3d4e5...f6g7h8i9</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-700">
+                                        <td class="py-4">June 20, 2025</td>
+                                        <td class="py-4">
+                                            <span class="px-2 py-1 bg-red-600 rounded-full text-xs">Withdrawal</span>
+                                        </td>
+                                        <td class="py-4 font-semibold">-0.0125 BTC</td>
+                                        <td class="py-4">
+                                            <span class="px-2 py-1 bg-green-600 rounded-full text-xs">Completed</span>
+                                        </td>
+                                        <td class="py-4">
+                                            <span
+                                                class="text-xs font-mono text-blue-400 cursor-pointer hover:underline">c3d4e5f6...g7h8i9j0</span>
+                                        </td>
+                                    </tr>
+                                </tbody> -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <i class="fab fa-bitcoin text-yellow-500 text-2xl"></i>
+                        <span class="text-xl font-bold">BitcoinVault</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">Your trusted partner in Bitcoin investment. Start building wealth with
+                        cryptocurrency today.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-telegram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Investment
+                                Plans</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Legal</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Risk Disclosure</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AML Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Live Chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Email Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Phone Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 BitcoinVault. All rights reserved. Cryptocurrency investments are subject to market risk.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="firebase-init.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
